@@ -34,7 +34,7 @@ public class UserController {
         Mono<MultiValueMap<String, String>> formData = serverWebExchange.getFormData();
         Mono<Integer> limit = formData.map(valueMap -> {
             String value = valueMap.getFirst("limit");
-            return value != null ? new Integer(value) : new Integer(0);
+            return new Integer(value);
         });
         Flux<User> users = apiService.getUsers(limit);
         model.addAttribute("users", users);
