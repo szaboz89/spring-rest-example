@@ -34,29 +34,29 @@ public class CategoryServiceTest {
 
     @Test
     public void getAllCategories() {
-        //given
+        // given
         List<Category> categories = Arrays.asList(new Category(), new Category(), new Category());
         when(categoryRepository.findAll()).thenReturn(categories);
 
-        //when
+        // when
         List<CategoryDTO> categoryDTOS = categoryService.getAllCategories();
 
-        //then
+        // then
         assertEquals(3, categoryDTOS.size());
     }
 
     @Test
     public void getCategoryByName() {
-        //given
+        // given
         Category category = new Category();
         category.setId(ID);
         category.setName(NAME);
         when(categoryRepository.findByName(anyString())).thenReturn(category);
 
-        //when
+        // when
         CategoryDTO categoryDTO = categoryService.getCategoryByName(NAME);
 
-        //then
+        // then
         assertEquals(ID, categoryDTO.getId());
         assertEquals(NAME, categoryDTO.getName());
     }
