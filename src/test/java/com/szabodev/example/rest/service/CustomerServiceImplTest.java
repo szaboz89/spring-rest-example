@@ -53,7 +53,6 @@ public class CustomerServiceImplTest {
 
         // then
         assertEquals(2, customerDTOS.size());
-
     }
 
     @Test
@@ -69,12 +68,12 @@ public class CustomerServiceImplTest {
         // when
         CustomerDTO customerDTO = customerService.getCustomerById(1L);
 
+        // then
         assertEquals("Michale", customerDTO.getFirstName());
     }
 
     @Test
     public void createNewCustomer() {
-
         // given
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstName("Jim");
@@ -96,7 +95,6 @@ public class CustomerServiceImplTest {
 
     @Test
     public void saveCustomerByDTO() {
-
         // given
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstName("Jim");

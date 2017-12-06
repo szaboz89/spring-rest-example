@@ -56,7 +56,7 @@ public class CustomerServiceImplIT {
         Customer originalCustomer = customerRepository.findById(id).orElse(null);
         assertNotNull(originalCustomer);
 
-        //save original
+        // save original
         String originalFirstName = originalCustomer.getFirstName();
         String originalLastName = originalCustomer.getLastName();
 

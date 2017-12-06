@@ -2,8 +2,10 @@ package com.szabodev.example.rest.bootstrap;
 
 import com.szabodev.example.rest.domain.shop.Category;
 import com.szabodev.example.rest.domain.shop.Customer;
+import com.szabodev.example.rest.domain.shop.Vendor;
 import com.szabodev.example.rest.repository.CategoryRepository;
 import com.szabodev.example.rest.repository.CustomerRepository;
+import com.szabodev.example.rest.repository.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,16 +17,31 @@ public class Bootstrap implements CommandLineRunner {
 
     private final CustomerRepository customerRepository;
 
+    private final VendorRepository vendorRepository;
+
     @Autowired
-    public Bootstrap(CategoryRepository categoryRespository, CustomerRepository customerRepository) {
+    public Bootstrap(CategoryRepository categoryRespository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
         this.categoryRespository = categoryRespository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
 
     @Override
     public void run(String... args) {
         loadCategories();
         loadCustomers();
+        loadVendors();
+    }
+
+    private void loadVendors() {
+        Vendor vendor1 = new Vendor();
+        vendor1.setName("Vendor 1");
+        vendorRepository.save(vendor1);
+
+        Vendor vendor2 = new Vendor();
+        vendor2.setName("Vendor 2");
+        vendorRepository.save(vendor2);
+
     }
 
     private void loadCategories() {
