@@ -19,7 +19,7 @@ public class RestTemplateExamples {
     private static final String API_URL = "https://api.predic8.de:443/shop";
 
     @Test
-    public void getCategories() throws Exception {
+    public void getCategories() {
         String apiUrl = API_URL + "/categories/";
         RestTemplate restTemplate = new RestTemplate();
         JsonNode jsonNode = restTemplate.getForObject(apiUrl, JsonNode.class);
@@ -27,7 +27,7 @@ public class RestTemplateExamples {
     }
 
     @Test
-    public void getCustomers() throws Exception {
+    public void getCustomers() {
         String apiUrl = API_URL + "/customers/";
         RestTemplate restTemplate = new RestTemplate();
         JsonNode jsonNode = restTemplate.getForObject(apiUrl, JsonNode.class);
@@ -35,18 +35,21 @@ public class RestTemplateExamples {
     }
 
     @Test
-    public void createCustomer() throws Exception {
+    public void createCustomer() {
         String apiUrl = API_URL + "/customers/";
         RestTemplate restTemplate = new RestTemplate();
         Map<String, Object> postMap = new HashMap<>();
         postMap.put("firstname", "Joe");
         postMap.put("lastname", "Buck");
-        JsonNode jsonNode = restTemplate.postForObject(apiUrl, postMap, JsonNode.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(postMap, headers);
+        JsonNode jsonNode = restTemplate.postForObject(apiUrl, entity, JsonNode.class);
         System.out.println("Response: " + jsonNode);
     }
 
     @Test
-    public void updateCustomer() throws Exception {
+    public void updateCustomer() {
         String apiUrl = API_URL + "/customers/";
         RestTemplate restTemplate = new RestTemplate();
 
@@ -54,7 +57,10 @@ public class RestTemplateExamples {
         Map<String, Object> postMap = new HashMap<>();
         postMap.put("firstname", "Micheal");
         postMap.put("lastname", "Weston");
-        JsonNode jsonNode = restTemplate.postForObject(apiUrl, postMap, JsonNode.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(postMap, headers);
+        JsonNode jsonNode = restTemplate.postForObject(apiUrl, entity, JsonNode.class);
         System.out.println("Response: " + jsonNode);
 
         // Update user
@@ -63,20 +69,25 @@ public class RestTemplateExamples {
         System.out.println("Created customer id: " + id);
         postMap.put("firstname", "Micheal 2");
         postMap.put("lastname", "Weston 2");
-        restTemplate.put(apiUrl + id, postMap);
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        entity = new HttpEntity<>(postMap, headers);
+        restTemplate.put(apiUrl + id, entity);
         JsonNode updatedNode = restTemplate.getForObject(apiUrl + id, JsonNode.class);
         System.out.println("Response after update: " + updatedNode);
     }
 
     @Test(expected = ResourceAccessException.class)
-    public void updateCustomerUsingPatchSunHttp() throws Exception {
+    public void updateCustomerUsingPatchSunHttp() {
         String apiUrl = API_URL + "/customers/";
         RestTemplate restTemplate = new RestTemplate();
         // Create user
         Map<String, Object> postMap = new HashMap<>();
         postMap.put("firstname", "Sam");
         postMap.put("lastname", "Axe");
-        JsonNode jsonNode = restTemplate.postForObject(apiUrl, postMap, JsonNode.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(postMap, headers);
+        JsonNode jsonNode = restTemplate.postForObject(apiUrl, entity, JsonNode.class);
         System.out.println("Response: " + jsonNode);
 
         // Update
@@ -86,17 +97,17 @@ public class RestTemplateExamples {
         postMap.put("firstname", "Sam 2");
         postMap.put("lastname", "Axe 2");
 
-        HttpHeaders headers = new HttpHeaders();
+        headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(postMap, headers);
+        entity = new HttpEntity<>(postMap, headers);
         //fails due to sun.net.www.protocol.http.HttpURLConnection not supporting patch
         JsonNode updatedNode = restTemplate.patchForObject(apiUrl + id, entity, JsonNode.class);
         System.out.println("Response after update: " + updatedNode);
     }
 
     @Test
-    public void updateCustomerUsingPatch() throws Exception {
+    public void updateCustomerUsingPatch() {
         String apiUrl = API_URL + "/customers/";
         // Use Apache HTTP client factory
         // see: https://github.com/spring-cloud/spring-cloud-netflix/issues/1777
@@ -107,7 +118,10 @@ public class RestTemplateExamples {
         Map<String, Object> postMap = new HashMap<>();
         postMap.put("firstname", "Sam");
         postMap.put("lastname", "Axe");
-        JsonNode jsonNode = restTemplate.postForObject(apiUrl, postMap, JsonNode.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(postMap, headers);
+        JsonNode jsonNode = restTemplate.postForObject(apiUrl, entity, JsonNode.class);
         System.out.println("Response: " + jsonNode);
 
         // Update user
@@ -117,16 +131,16 @@ public class RestTemplateExamples {
         postMap.put("firstname", "Sam 2");
         postMap.put("lastname", "Axe 2");
 
-        HttpHeaders headers = new HttpHeaders();
+        headers = new HttpHeaders();
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(postMap, headers);
+        entity = new HttpEntity<>(postMap, headers);
         JsonNode updatedNode = restTemplate.patchForObject(apiUrl + id, entity, JsonNode.class);
         System.out.println("Response after update: " + updatedNode);
     }
 
     @Test(expected = HttpClientErrorException.class)
-    public void deleteCustomer() throws Exception {
+    public void deleteCustomer() {
         String apiUrl = API_URL + "/customers/";
         RestTemplate restTemplate = new RestTemplate();
 

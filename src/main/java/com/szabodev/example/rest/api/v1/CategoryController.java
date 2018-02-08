@@ -1,7 +1,7 @@
 package com.szabodev.example.rest.api.v1;
 
 import com.szabodev.example.rest.api.v1.model.CategoryDTO;
-import com.szabodev.example.rest.api.v1.model.CatorgoryListDTO;
+import com.szabodev.example.rest.api.v1.model.CategoryListDTO;
 import com.szabodev.example.rest.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +20,8 @@ public class CategoryController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CatorgoryListDTO getallCatetories() {
-        return new CatorgoryListDTO(categoryService.getAllCategories());
+    public CategoryListDTO getAllCategories() {
+        return new CategoryListDTO(categoryService.getAllCategories());
     }
 
     @GetMapping("{name}")
