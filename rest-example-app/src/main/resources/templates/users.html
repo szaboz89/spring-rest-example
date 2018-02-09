@@ -17,8 +17,6 @@
             crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
 </head>
 <body>
-<!--/*@thymesVar id="users" type="java.util.List"*/-->
-<!--/*@thymesVar id="user" type="guru.springframework.api.domain.User"*/-->
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -56,6 +54,8 @@
                                 <td>English</td>
                                 <td>132-123-1234</td>
                             </tr>
+                            <!--/*@thymesVar id="users" type="java.util.List"*/-->
+                            <!--/*@thymesVar id="user" type="com.szabodev.example.rest.domain.User"*/-->
                             <tr th:each="user : ${users}">
                                 <td th:text="${user.name.first}">Joe</td>
                                 <td th:text="${user.name.last}">Buck</td>
