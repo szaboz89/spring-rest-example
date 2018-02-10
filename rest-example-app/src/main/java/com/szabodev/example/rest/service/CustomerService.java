@@ -1,6 +1,6 @@
 package com.szabodev.example.rest.service;
 
-import com.szabodev.example.rest.api.v1.model.CustomerDTO;
+import com.szabodev.example.rest.dto.CustomerDTO;
 
 import java.util.List;
 

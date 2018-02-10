@@ -2,8 +2,8 @@ package com.szabodev.example.rest.service;
 
 import com.szabodev.example.rest.api.v1.CustomerController;
 import com.szabodev.example.rest.api.v1.mapper.CustomerMapper;
-import com.szabodev.example.rest.api.v1.model.CustomerDTO;
 import com.szabodev.example.rest.domain.shop.Customer;
+import com.szabodev.example.rest.dto.CustomerDTO;
 import com.szabodev.example.rest.exception.ResourceNotFoundException;
 import com.szabodev.example.rest.repository.CustomerRepository;
 import org.springframework.stereotype.Service;

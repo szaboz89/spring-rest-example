@@ -46,4 +46,11 @@
         </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.szabodev.example</groupId>
+            <artifactId>rest-example-dto</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

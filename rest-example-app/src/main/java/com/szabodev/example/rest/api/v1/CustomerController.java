@@ -1,7 +1,7 @@
 package com.szabodev.example.rest.api.v1;
 
-import com.szabodev.example.rest.api.v1.model.CustomerDTO;
-import com.szabodev.example.rest.api.v1.model.CustomerListDTO;
+import com.szabodev.example.rest.dto.CustomerDTO;
+import com.szabodev.example.rest.dto.CustomerListDTO;
 import com.szabodev.example.rest.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,9 @@ public class CustomerController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public CustomerListDTO getListOfCustomers() {
-        return new CustomerListDTO(customerService.getAllCustomers());
+        CustomerListDTO customerListDTO = new CustomerListDTO();
+        customerListDTO.getCustomers().addAll(customerService.getAllCustomers());
+        return customerListDTO;
     }
 
     @GetMapping({"/{id}"})
