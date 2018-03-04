@@ -2,6 +2,8 @@ package com.szabodev.example.rest.api.v1;
 
 import com.szabodev.example.rest.dto.CustomerDTO;
 import com.szabodev.example.rest.dto.CustomerListDTO;
+import com.szabodev.example.rest.exception.Error;
+import com.szabodev.example.rest.exception.ResourceNotFoundException;
 import com.szabodev.example.rest.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +57,12 @@ public class CustomerController {
     @ResponseStatus(HttpStatus.OK)
     public void deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomerById(id);
+    }
+
+    @ExceptionHandler(value = ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Error resourceNotFound(ResourceNotFoundException e) {
+        return new Error(4, "Resource not found");
     }
 
 }
